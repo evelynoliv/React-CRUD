@@ -46,10 +46,10 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     if (onEdit) {
       const user = ref.current;
 
-      user.nome.value = onEdit.nome;
+      user.name.value = onEdit.name;
       user.email.value = onEdit.email;
-      user.fone.value = onEdit.fone;
-      user.data_nascimento.value = onEdit.data_nascimento;
+      user.phone.value = onEdit.phone;
+      user.birthdate.value = onEdit.birthdate;
     }
   }, [onEdit]);
 
@@ -59,10 +59,10 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     const user = ref.current;
 
     if (
-      !user.nome.value ||
+      !user.name.value ||
       !user.email.value ||
-      !user.fone.value ||
-      !user.data_nascimento.value
+      !user.phone.value ||
+      !user.birthdate.value
     ) {
       return toast.warn("Preencha todos os campos!");
     }
@@ -70,29 +70,29 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     if (onEdit) {
       await axios
         .put("http://localhost:8800/" + onEdit.id, {
-          nome: user.nome.value,
+          name: user.name.value,
           email: user.email.value,
-          fone: user.fone.value,
-          data_nascimento: user.data_nascimento.value,
+          phone: user.phone.value,
+          birthdate: user.birthdate.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
     } else {
       await axios
         .post("http://localhost:8800", {
-          nome: user.nome.value,
+          name: user.name.value,
           email: user.email.value,
-          fone: user.fone.value,
-          data_nascimento: user.data_nascimento.value,
+          phone: user.phone.value,
+          birthdate: user.birthdate.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
     }
 
-    user.nome.value = "";
+    user.name.value = "";
     user.email.value = "";
-    user.fone.value = "";
-    user.data_nascimento.value = "";
+    user.phone.value = "";
+    user.birthdate.value = "";
 
     setOnEdit(null);
     getUsers();
@@ -101,23 +101,23 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
   return (
     <FormContainer ref={ref} onSubmit={handleSubmit}>
       <InputArea>
-        <Label>Nome</Label>
-        <Input name="nome" />
+        <Label>Name</Label>
+        <Input name="name" />
       </InputArea>
       <InputArea>
         <Label>E-mail</Label>
         <Input name="email" type="email" />
       </InputArea>
       <InputArea>
-        <Label>Telefone</Label>
-        <Input name="fone" />
+        <Label>Phone</Label>
+        <Input name="phone" />
       </InputArea>
       <InputArea>
-        <Label>Data de Nascimento</Label>
-        <Input name="data_nascimento" type="date" />
+        <Label>Birth Date</Label>
+        <Input name="birthdate" type="date" />
       </InputArea>
 
-      <Button type="submit">SALVAR</Button>
+      <Button type="submit">SUBMIT</Button>
     </FormContainer>
   );
 };
