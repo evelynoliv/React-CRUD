@@ -1,4 +1,4 @@
-# react-crud
+# React-CRUD
 
-##A simple CRUD aplication made with React, Node.js and MySQL.
+## A CRUD aplication made with React, Node.js and MySQL.
 
